@@ -1,0 +1,4 @@
+counter_read request_counter 0
+counter_read request_counter 1
+counter_read request_counter 2
+counter_read request_counter 3

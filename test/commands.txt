@@ -1,0 +1,43 @@
+table_set_default hash_table hash_action
+table_set_default forward nat
+table_set_default remeber_version remeber_action
+table_set_default redirect _nop
+table_add redirect push_to_controller 1 =>
+table_add sercli_table inverse_nat 118949655 =>
+table_add map_table map_dip 0 => 167772162 2 2
+table_add map_table map_dip 1 => 167772163 3 3
+table_add map_table map_dip 2 => 167772164 4 4
+table_add map_table map_dip 3 => 167772165 5 5
+table_add route_table select_dip 0 0 => 0
+table_add route_table select_dip 1 0 => 0
+table_add route_table select_dip 2 0 => 0
+table_add route_table select_dip 3 0 => 0
+table_add route_table select_dip 4 0 => 1
+table_add route_table select_dip 5 0 => 1
+table_add route_table select_dip 6 0 => 1
+table_add route_table select_dip 7 0 => 1
+table_add route_table select_dip 8 0 => 1
+table_add route_table select_dip 9 0 => 1
+table_add route_table select_dip 10 0 => 2
+table_add route_table select_dip 11 0 => 2
+table_add route_table select_dip 12 0 => 2
+table_add route_table select_dip 13 0 => 2
+table_add route_table select_dip 14 0 => 3
+table_add route_table select_dip 15 0 => 3
+table_add route_table select_dip 16 0 => 3
+table_add route_table select_dip 17 0 => 3
+table_add route_table select_dip 18 0 => 3
+table_add route_table select_dip 19 0 => 3
+table_add route_table select_dip 20 0 => 0
+table_add route_table select_dip 21 0 => 0
+table_add route_table select_dip 22 0 => 1
+table_add route_table select_dip 23 0 => 1
+table_add route_table select_dip 24 0 => 1
+table_add route_table select_dip 25 0 => 2
+table_add route_table select_dip 26 0 => 2
+table_add route_table select_dip 27 0 => 3
+table_add route_table select_dip 28 0 => 3
+table_add route_table select_dip 29 0 => 3
+table_add route_table select_dip 30 0 => 0
+table_add route_table select_dip 31 0 => 2
+mirroring_add 250 0

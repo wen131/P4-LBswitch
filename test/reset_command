@@ -1,0 +1,35 @@
+table_clear route_table
+register_write version_register 0 0
+table_add route_table select_dip 0 0 => 0
+table_add route_table select_dip 1 0 => 0
+table_add route_table select_dip 2 0 => 1
+table_add route_table select_dip 3 0 => 1
+table_add route_table select_dip 4 0 => 1
+table_add route_table select_dip 5 0 => 2
+table_add route_table select_dip 6 0 => 2
+table_add route_table select_dip 7 0 => 3
+table_add route_table select_dip 8 0 => 3
+table_add route_table select_dip 9 0 => 3
+table_add route_table select_dip 10 0 => 0
+table_add route_table select_dip 11 0 => 0
+table_add route_table select_dip 12 0 => 1
+table_add route_table select_dip 13 0 => 1
+table_add route_table select_dip 14 0 => 1
+table_add route_table select_dip 15 0 => 2
+table_add route_table select_dip 16 0 => 2
+table_add route_table select_dip 17 0 => 3
+table_add route_table select_dip 18 0 => 3
+table_add route_table select_dip 19 0 => 3
+table_add route_table select_dip 20 0 => 0
+table_add route_table select_dip 21 0 => 0
+table_add route_table select_dip 22 0 => 1
+table_add route_table select_dip 23 0 => 1
+table_add route_table select_dip 24 0 => 1
+table_add route_table select_dip 25 0 => 2
+table_add route_table select_dip 26 0 => 2
+table_add route_table select_dip 27 0 => 3
+table_add route_table select_dip 28 0 => 3
+table_add route_table select_dip 29 0 => 3
+table_add route_table select_dip 30 0 => 0
+table_add route_table select_dip 31 0 => 2
+counter_reset request_counter
