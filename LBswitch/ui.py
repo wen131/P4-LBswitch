@@ -39,28 +39,28 @@ class Application(Frame):
         self.weights=temp
 
     def createWidgets(self):
-        self.label= Label(image=self.bms[0])
-
         self.btn_QUIT = Button(self)
         self.btn_QUIT["text"] = "QUIT"
         self.btn_QUIT["fg"]   = "red"
         self.btn_QUIT["command"] =  self.quit
-         
+        self.btn_QUIT.pack() 
         
         self.btn_addone = Button(self)
         self.btn_addone["text"] = "Add one"
         self.btn_addone["command"] = self.update_DIPs
-        
+        self.btn_addone.pack()
         
         self.btn_update = Button(self)
         self.btn_update["text"] = "update weight"
         self.btn_update["command"] = self.update_weights
-
+        self.btn_update.pack()
 
         self.text_weights = Entry(self)
         self.text_weights.place(width=200,height=200,x=0,y=0)
+        self.text_weights.pack()
 
-
+        self.label= Label(image=self.bms[0])
+        self.label.pack()
     def handle_pkt(self, pkt):
         if IP in pkt and TCP in pkt:
             src_ip = pkt[IP].src
@@ -84,6 +84,7 @@ class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         master.geometry('1024x768')
+        self.pack()
         self.bms=[PhotoImage(file='DIP3%d.gif'%(i,)) for i in range(4)]
         self.createWidgets()
         self.hash_const=6

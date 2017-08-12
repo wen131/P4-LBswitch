@@ -1,4 +1,4 @@
-round=50
+round=2
 
 idx=1
 while [ $idx -lt $round ]
