@@ -28,10 +28,9 @@ class MyFrame(wx.Frame):
         self.btnrefreshconntable.Bind(wx.EVT_BUTTON,self.refresh_conntable)
         self.btnrefreshroutetable= wx.BitmapButton(panel,-1,wx.Bitmap('figure/btnrefreshroute.png',wx.BITMAP_TYPE_PNG),(800,600))
         self.btnrefreshroutetable.Bind(wx.EVT_BUTTON,self.refresh_routetable)
-        self.bmp.SetBitmap(self.bms[2])
         self.hostinfo= wx.StaticText(panel,-1,"From ",(100,410))
         self.hostinfo.SetForegroundColour("WHITE")
-        self.hostinfo.SetFont(wx.Font(20,wx.DEFAULT,wx.NORMAL,wx.NORMAL))
+        self.hostinfo.SetFont(wx.Font(20,wx.DECORATIVE,wx.NORMAL,wx.NORMAL))
         self.textweight= wx.TextCtrl(panel,-1,"weights",(240,100),size=(140,50))
         self.entrieslist= wx.ListCtrl(panel,-1,(300,500),(400,200),wx.LC_REPORT)
         self.add_column()
@@ -123,8 +122,10 @@ class MyFrame(wx.Frame):
                     CMD="'table_add version_table select_version %d => %d'"%(hash_res,self.VER)
                     do_cmd(CMD)
                     self.change_image(self.weights[hash_res%self.hash_const]+1)
-                    self.connentries.append([self.connentrynum,"0x%x"%(hash_res,),"select_version",self.VER])
-                    self.hostinfo.SetLabel("From %s:%s"%(src_ip,sport))
+                    _entry=[self.connentrynum,"0x%x"%(hash_res,),"select_version",self.VER]
+                    self.connentries.append(_entry)
+                    wx.CallAfter(self.entrieslist.Append,_entry)
+                    wx.CallAfter(self.hostinfo.SetLabel,"From %s:%s"%(src_ip,sport))
                     self.connentrynum+=1
 
 if __name__ == '__main__':
