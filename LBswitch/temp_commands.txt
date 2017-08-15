@@ -1,7 +1,7 @@
-table_add route_table select_dip 0 2 => 3
-table_add route_table select_dip 1 2 => 3
-table_add route_table select_dip 2 2 => 3
-table_add route_table select_dip 3 2 => 3
-table_add route_table select_dip 4 2 => 3
-table_add route_table select_dip 5 2 => 3
-register_write version_register 0 2
+table_add route_table select_dip 0 3 => 0
+table_add route_table select_dip 1 3 => 1
+table_add route_table select_dip 2 3 => 0
+table_add route_table select_dip 3 3 => 1
+table_add route_table select_dip 4 3 => 0
+table_add route_table select_dip 5 3 => 1
+register_write version_register 0 3

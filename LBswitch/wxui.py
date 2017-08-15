@@ -33,6 +33,7 @@ class MyFrame(wx.Frame):
         self.hostinfo.SetFont(wx.Font(20,wx.DECORATIVE,wx.NORMAL,wx.NORMAL))
         self.textweight= wx.TextCtrl(panel,-1,"weights",(240,100),size=(140,50))
         self.entrieslist= wx.ListCtrl(panel,-1,(300,500),(400,200),wx.LC_REPORT)
+        self.list_state=0
         self.add_column()
         self.entrynum=0
         self.VER=0
@@ -44,7 +45,7 @@ class MyFrame(wx.Frame):
         self.routeentries=[]
         self.weights=[2,0,1,1,0,2]
         for i in range(len(self.weights)):
-            self.routeentries.append([self.routeentrynum,"%d %d"%(self.VER,i),"select_dip",self.weights[i]])
+            self.routeentries.append([self.routeentrynum,"%d"%(self.VER,),"%d"%(i,),"select_dip",self.weights[i]])
             self.routeentrynum+=1
         self.t1=threading.Thread(target=self.data_plane)
         self.t1.setDaemon(True)
@@ -53,11 +54,17 @@ class MyFrame(wx.Frame):
         self.Show(True)
 
     def add_column(self):
-        self.entrieslist.AppendColumn("entry",wx.LIST_FORMAT_LEFT,50)
-        self.entrieslist.AppendColumn("match key",wx.LIST_FORMAT_LEFT,150)
-        self.entrieslist.AppendColumn("action",wx.LIST_FORMAT_LEFT,100)
-        self.entrieslist.AppendColumn("runtime data",wx.LIST_FORMAT_LEFT,100)
-
+        if self.list_state==0:
+            self.entrieslist.AppendColumn("entry",wx.LIST_FORMAT_LEFT,50)
+            self.entrieslist.AppendColumn("hash",wx.LIST_FORMAT_LEFT,150)
+            self.entrieslist.AppendColumn("action",wx.LIST_FORMAT_LEFT,100)
+            self.entrieslist.AppendColumn("version",wx.LIST_FORMAT_LEFT,100)
+        else:
+            self.entrieslist.AppendColumn("entry",wx.LIST_FORMAT_LEFT,50)
+            self.entrieslist.AppendColumn("version",wx.LIST_FORMAT_LEFT,75)
+            self.entrieslist.AppendColumn("hash mod",wx.LIST_FORMAT_LEFT,75)
+            self.entrieslist.AppendColumn("action",wx.LIST_FORMAT_LEFT,100)
+            self.entrieslist.AppendColumn("DIP index",wx.LIST_FORMAT_LEFT,100)
     def change_image(self,k):
         self.bmp.SetBitmap(self.bms[k])
 
@@ -66,12 +73,14 @@ class MyFrame(wx.Frame):
              prn = lambda x: self.handle_pkt(x))
 
     def refresh_conntable(self, event):
+        self.list_state=0
         self.entrieslist.ClearAll()
         self.add_column()
         for i in self.connentries:
             self.entrieslist.Append(i)
 
     def refresh_routetable(self, event):
+        self.list_state=1
         self.entrieslist.ClearAll()
         self.add_column()
 
@@ -98,7 +107,7 @@ class MyFrame(wx.Frame):
         self.load_weights(temp)
         self.weights=temp
         for i in range(len(temp)):
-            self.routeentries.append([self.routeentrynum,"%d %d"%(self.VER,i),"select_dip",self.weights[i]])
+            self.routeentries.append([self.routeentrynum,"%d"%(self.VER,),"%d"%(i,),"select_dip",self.weights[i]])
             self.routeentrynum+=1
 
 
@@ -124,7 +133,8 @@ class MyFrame(wx.Frame):
                     self.change_image(self.weights[hash_res%self.hash_const]+1)
                     _entry=[self.connentrynum,"0x%x"%(hash_res,),"select_version",self.VER]
                     self.connentries.append(_entry)
-                    wx.CallAfter(self.entrieslist.Append,_entry)
+                    if self.list_state==0:
+                        wx.CallAfter(self.entrieslist.Append,_entry)
                     wx.CallAfter(self.hostinfo.SetLabel,"From %s:%s"%(src_ip,sport))
                     self.connentrynum+=1
 
